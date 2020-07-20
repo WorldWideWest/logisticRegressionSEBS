@@ -1,5 +1,33 @@
 from tkinter import *
 from tkinter import messagebox
+import numpy as np
+import pandas as pd
+import statsmodels.api as sm
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+## LOGISTIC REGRESSION
+
+# importing the data
+rawDataPass = pd.read_excel('source\\convertedData\\rawDataCleaned\\XLSX/Passed.xlsx')
+rawDataPass['Admitted'] = 1
+
+rawDataFail = pd.read_excel('source\\convertedData\\rawDataCleaned\\XLSX/Failed.xlsx')
+rawDataFail['Admitted'] = 0
+
+data = pd.concat([rawDataPass, rawDataFail])
+
+# building the regression
+
+y = data['Admitted'] # dependent variable
+x1 = data['Points'] # independent variable
+
+x = sm.add_constant(x1)
+regLog = sm.Logit(y,x)
+resultsLog = regLog.fit()
+
+
+
 
 # CREATING THE WIDGETS
 ## Info widgets
