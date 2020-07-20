@@ -26,9 +26,6 @@ x = sm.add_constant(x1)
 regLog = sm.Logit(y,x)
 resultsLog = regLog.fit()
 
-
-
-
 # CREATING THE WIDGETS
 ## Info widgets
 root = Tk(className=' SEBS admission test ')
@@ -43,7 +40,11 @@ def CheckValue():
         if(float(box.get()) < 1 or float(box.get()) > 100):
             messagebox.showerror('Error', 'Value out of range!')
         elif(float(box.get()) >= 1 or float(box.get()) <= 100):
+            ## creating the prediction 
+            value = float(box.get())
+            predValues = resultsLog.predict(value)
             messagebox.showinfo('Info', 'You have passed the exam')
+
     except Exception:
         messagebox.showerror('Error', 'Syntax Error - the value could not be parsed!')
 
