@@ -3,6 +3,8 @@ from tkinter import messagebox
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import sys
+sys.setrecursionlimit(10000)
 
 
 ## LOGISTIC REGRESSION
