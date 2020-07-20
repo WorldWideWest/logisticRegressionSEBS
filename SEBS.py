@@ -25,6 +25,8 @@ x1 = data['Points'] # independent variable
 x = sm.add_constant(x1)
 regLog = sm.Logit(y,x)
 resultsLog = regLog.fit()
+resultsLog.predict()
+
 
 # CREATING THE WIDGETS
 ## Info widgets
@@ -40,11 +42,19 @@ def CheckValue():
         if(float(box.get()) < 1 or float(box.get()) > 100):
             messagebox.showerror('Error', 'Value out of range!')
         elif(float(box.get()) >= 1 or float(box.get()) <= 100):
-            ## creating the prediction 
-            value = float(box.get())
-            predValues = resultsLog.predict(value)
-            messagebox.showinfo('Info', 'You have passed the exam')
 
+            ## creating the prediction
+            num = float(box.get())
+            testData = pd.DataFrame({"Points": [num]})
+            testData = sm.add_constant(testData, has_constant="add")
+            predValue = resultsLog.predict(testData)
+            value = predValue[0]
+            if(float(value) < 0.5):
+                output = "We are sorry but you have not passed the exam :("
+                messagebox.showinfo('Info', str(output))
+            elif(float(value) >= 0.5):
+                output = "Congratulations you have passed the exam :)"
+                messagebox.showinfo('Info', str(output))
     except Exception:
         messagebox.showerror('Error', 'Syntax Error - the value could not be parsed!')
 
