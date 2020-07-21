@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 import sys
-sys.setrecursionlimit(100000)
+sys.setrecursionlimit(1000000000000000000)
 
 
 ## LOGISTIC REGRESSION
